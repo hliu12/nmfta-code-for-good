@@ -1,3 +1,10 @@
+# Code for Good - NMFTA
+#
+# request-henry.py
+# Bouncer API Get Request testing
+#
+# Written by Henry Liu
+#       on June 2020
 
 import requests
 
