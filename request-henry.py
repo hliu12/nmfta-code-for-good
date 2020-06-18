@@ -27,14 +27,5 @@ def getRequest(requestType, url):
 
 
 
-
-# def main():
-# 	get_request_format('whitelist',
-# 		'https://private-anon-cd74c54b0e-nmftabouncer.apiary-mock.com/v1.1/whitelists')
-# 	get_request_format('white list IPs',
-# 		'https://private-anon-cd74c54b0e-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses')
-# 	get_request_format('blacklist', 'https://private-anon-cd74c54b0e-nmftabouncer.apiary-mock.com/v1.1/blacklists')
-
-
 # calls main function
 main()
