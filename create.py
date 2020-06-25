@@ -1,7 +1,7 @@
 # Andrew Crofts and Ann Marie Burke
 # Code for Good - NMFTA
 # June 2020
-# creates new entry for blacklist
+# creates new entry for blacklist with random time duration
 
 
 import requests
@@ -16,8 +16,7 @@ MAX = 24
 # Name: current_time
 # Purpose: return current UTC time
 # Input: none
-# Returns: string of current UTC time in ISO 8601 format as specified in
-# https://nmftabouncer.docs.apiary.io/#introduction/working-with-date-and-time
+# Returns: string of current UTC time in ISO format
 # Effects: calls utcnow function through datetime module
 """
 def current_time():
@@ -25,16 +24,14 @@ def current_time():
 
 """
 # Name: random_time
-# Purpose: calculates random time duration to pass from start time
+# Purpose: calculates random time duration
+#          and calculates end time from given start time
 # Input: none
-# Returns: string of random UTC time between 8 and 24 hours
+# Returns: string of random UTC time in ISO format between 8 and 24 hours
 #          later than current_time (end time)
 # Effects: prints start time, duration, and end time
 """
 def random_time(curr):
-    current_time = datetime.datetime.utcnow().isoformat() # set variable type
-    current_time = curr
-
     # get datetime format from ISO format to be compatible with duration
     current_time = datetime.datetime.fromisoformat(str(curr))
     print("Start time " + str(curr))
@@ -48,7 +45,7 @@ def random_time(curr):
     
     # random end time is current time + duration
     random_end = current_time + duration
-    end_time = random_end.isoformat() # ISO format
+    end_time = random_end.isoformat() # convert to ISO format
     print("End time: " + str(end_time))
 
     return end_time
@@ -65,15 +62,20 @@ def create():
     end_time = random_time(start_time)
     headers = {
         'Authorization': 'Bearer {access token from /login}',
+    }
+
+    params = {
         'IP': '35.4.6.4.33/24',
         "Start_Date": start_time,
         "End_Date" : end_time,
     }
-
-    request = requests.get('https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/create', params = headers)
+    IP = params['IP']
+    print('\n')
+    print("Adding " + IP + " to blacklist\n")
+    request = requests.post('https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/create', headers=headers, params=params)
     print('Status code: ' + str(request.status_code))
     print('Text: ' + str(request.text))
-    #TODO: Print list to ensure IP is added
+    # TODO: Search list to ensure IP is added
 
 """
 # Name: main
@@ -85,7 +87,12 @@ def create():
 def main():
     create()
 
-#call main
+# call main
 main()
 
+# Resources:
+#   https://docs.python.org/3/library/random.html
+#   https://docs.python.org/3/library/datetime.html
+#   https://stackoverflow.com/questions/2150739/iso-time-iso-8601-in-python
+#   https://www.geeksforgeeks.org/get-current-date-and-time-using-python/#:~:text=To%20get%20both%20current%20date,current%20local%20date%20and%20time.
 
