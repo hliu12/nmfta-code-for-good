@@ -114,6 +114,22 @@ def create(type, to_blacklist):
     # TODO: Search list to ensure IP is added
 
 """
+# Name: get_geo
+# Purpose: get geo location country code of given IP address
+# Input: IP address
+# Returns: geo location country code of IP address
+"""
+def get_geo(ip):
+    url = 'https://ipinfo.io/' + str(ip) + '/json'
+    # print(url) # debugging
+    response = requests.get(url)
+    # print(response.text) # debugging - print response text
+    jsonResponse = response.json()
+    country_code = str(jsonResponse["country"])
+    # print(country_code) # debugging - print country code
+    return country_code
+
+"""
 # Name: main
 # Purpose: main function
 # Input: none
@@ -128,21 +144,26 @@ def main():
         flag = args[1]
         if (flag == "--help"):
             print("Usage: --help for help")
-            print("       --ip [IP address]")
-            print("       --geo [Geo Location]")
+            print("       --ip [IP Address]")
+            print("       --geo [IP Address of location to block]")
         else:
             print("Use --help to get started.")
     elif (argc != 3):
         print("Use --help to get started.")
     else:
         flag = args[1]
-        to_blacklist = str(args[2])
+        
         if (flag == "--ip"):
+            to_blacklist = str(args[2])
             create('ip', to_blacklist)
         elif (flag == "--geo"):
+            ip = str(args[2])
+            to_blacklist = get_geo(ip)
             create('geo', to_blacklist)
         else:
-            print("Error: Invalid flag")
+            print("Usage: --help for help")
+            print("       --ip [IP Address]")
+            print("       --geo [IP Address of location to block]")
 
 # call main
 main()
