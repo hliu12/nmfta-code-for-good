@@ -1,18 +1,22 @@
+"""
 # Ann Marie Burke
 # Code for Good - NMFTA
 # June 2020
 # request-annmarie.py - sends GET requests to Bouncer API
-#
+"""
+
 # Note: a problem I am seeing with Search is that the response always has a
 # status code of 200 and a status of success for any IP I search for
 
 import requests
 
+"""
 # Name: list_print
 # Purpose: function for printing List request
 # Input: json-formatted response, string of the attribute of the entry (IP, Geo)
 # Returns: none
 # Effects: prints information from request response
+"""
 def list_print(jsonResponse, attribute):
 	if attribute == "all":
 		print("IP Addresses: " + str(jsonResponse["IPAddresses"]))
@@ -24,11 +28,13 @@ def list_print(jsonResponse, attribute):
 	else:
 		pass
 
+"""
 # Name: search_print
 # Purpose: function for printing Search request
 # Input: json-formatted response, string of the attribute of the entry (IP, Geo)
 # Returns: none
 # Effects: prints information from request response
+"""
 def search_print(jsonResponse, attribute):
 	# print(str(jsonResponse)) # prints json response
 	if attribute == "ip":
@@ -39,15 +45,18 @@ def search_print(jsonResponse, attribute):
 	else:
 		pass
 
+"""
 # Name: detail_print
 # Purpose: function for printing Get Details request
 # Input: json-formatted response
 # Returns: none
 # Effects: prints information from request response
+"""
 def detail_print(jsonResponse):
 	# print(str(jsonResponse)) # prints json response
 	print("Entry: " + str(jsonResponse["Entry"]))
 
+"""
 # Name: get_request
 # Purpose: function for sending request and printing
 # Input: string representing what the request is to
@@ -57,6 +66,7 @@ def detail_print(jsonResponse):
 # Returns: none
 # Effects: Prints what you are requesting, url, status code and text
 # Note: print call for header, headers content type, and text are commented out
+"""
 def get_request(what, attribute, format, url):
 	# set the headers of the request
 	headers = {
@@ -96,13 +106,14 @@ def get_request(what, attribute, format, url):
 
 	print('\n')
 
-
+"""
 # Name: main
 # Purpose: main function
 # Input: none
 # Returns: none
 # Effects: calls get_request_format function
 # Note: only shows examples of calls, does not make all possible calls to API
+"""
 def main():
 	# List
 	# get_request("Whitelist: All Contents", "all", "list", 
@@ -123,23 +134,23 @@ def main():
 	#
 	# Note: a problem I am seeing with Search is that the response always has a
 	# status code of 200 and a status of success for any IP I search for
-	get_request("Whitelist: IP Addresses \n    Search 192.168.100.0, 192.168.101.0", "ip", "search", 
-		"http://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses/filter/192.168.100.0%2B24%2C192.168.101.0%2B24")
+	# get_request("Whitelist: IP Addresses \n    Search 192.168.100.0, 192.168.101.0", "ip", "search", 
+	# 	"http://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses/filter/192.168.100.0%2B24%2C192.168.101.0%2B24")
 
-	get_request("Blacklist: IP Addresses \n    Search 192.168.100.0, 192.168.101.0", "ip", "search",
-		"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/filter/192.168.100.0%2B24%2C192.168.101.0%2B24")
+	# get_request("Blacklist: IP Addresses \n    Search 192.168.100.0, 192.168.101.0", "ip", "search",
+	# 	"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/filter/192.168.100.0%2B24%2C192.168.101.0%2B24")
 
-	get_request("Blacklist: IP Addresses \n    Search 127.0.0.1, 127.0.1.0", "ip", "search",
-		"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/filter/127.0.0.1%2B24%2C127.0.1.0%2B24")
+	# get_request("Blacklist: IP Addresses \n    Search 127.0.0.1, 127.0.1.0", "ip", "search",
+	# 	"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/filter/127.0.0.1%2B24%2C127.0.1.0%2B24")
 
-	get_request("Whitelist: IP Addresses \n    Search 192.168.100.14", "ip", "search",
-		"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses/filter/192.168.100.14%2B24")
+	# get_request("Whitelist: IP Addresses \n    Search 192.168.100.14", "ip", "search",
+	# 	"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses/filter/192.168.100.14%2B24")
 
-	get_request("Whitelist: IP Addresses \n    Search 127.0.0.1", "ip", "search",
-		"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses/filter/127.0.0.1%2B24")
+	get_request("Whitelist: IP Addresses \n    Search 35.4.6.4.33", "ip", "search",
+		"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses/filter/35.4.6.4.33%2B24")
 
-	get_request("Whitelist: IP Addresses \n    Search 8.8.4.4, 8.8.8.8", "ip", "search",
-		"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses/filter/8.8.4.4%2B24%2C8.8.8.8%2B24")
+	# get_request("Whitelist: IP Addresses \n    Search 8.8.4.4, 8.8.8.8", "ip", "search",
+	# 	"https://private-anon-86ddcc4f98-nmftabouncer.apiary-mock.com/v1.1/whitelists/ipaddresses/filter/8.8.4.4%2B24%2C8.8.8.8%2B24")
 	
 
 	# Get Details
@@ -158,11 +169,14 @@ def main():
 main()
 
 
-
+"""
 # References:
 #    https://requests.readthedocs.io/en/master/user/quickstart/
 #    https://requests.readthedocs.io/en/master/
+"""
 
+"""
 # Important links:
 #    https://github.com/nmfta-repo/nmfta-bouncer/blob/master/apiary.apib
 #    https://nmftabouncer.docs.apiary.io/
+"""

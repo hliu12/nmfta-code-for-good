@@ -40,6 +40,7 @@ def random_time(curr):
     random_num = (random.random() * (MAX - MIN)) + MIN
 
     # set duration to be random_num hours
+    # https://docs.python.org/3/library/datetime.html#datetime.timedelta
     duration = datetime.timedelta(hours=random_num)
     print("Duration of block: " + str(duration))
     
