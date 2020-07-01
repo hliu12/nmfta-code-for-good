@@ -7,6 +7,7 @@
 import requests
 import datetime
 import random
+import sys
 
 # define constants as min and max time in hours
 MIN = 8
@@ -103,7 +104,7 @@ def create(type, to_blacklist):
     elif (type == 'geo'):
         params = geo_params(to_blacklist, start_time, end_time)
     else:
-        print("Invalid entry")
+        print("Error: Invalid entry")
         pass
     
     request = requests.post('https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/create', headers=headers, params=params)
@@ -120,8 +121,28 @@ def create(type, to_blacklist):
 # Effects: calls create function on ip and geo location
 """
 def main():
-    create('ip', '35.4.6.4.33/24') # random ip
-    create('geo', 'insert location')
+    args = sys.argv # get args
+    argc = len(args) # get num of args
+
+    if (argc == 2):
+        flag = args[1]
+        if (flag == "--help"):
+            print("Usage: --help for help")
+            print("       --ip [IP address]")
+            print("       --geo [Geo Location]")
+        else:
+            print("Use --help to get started.")
+    elif (argc != 3):
+        print("Use --help to get started.")
+    else:
+        flag = args[1]
+        to_blacklist = str(args[2])
+        if (flag == "--ip"):
+            create('ip', to_blacklist)
+        elif (flag == "--geo"):
+            create('geo', to_blacklist)
+        else:
+            print("Error: Invalid flag")
 
 # call main
 main()
