@@ -1,4 +1,4 @@
-# Andrew Crofts and Ann Marie Burke
+# Andrew Crofts, Ann Marie Burke and Henry Liu
 # Code for Good - NMFTA
 # June 2020
 # creates new entry for blacklist with random time duration
@@ -8,6 +8,7 @@ import requests
 import datetime
 import random
 import sys
+from random import randint
 
 # define constants as min and max time in hours
 MIN = 8
@@ -125,9 +126,30 @@ def get_geo(ip):
     response = requests.get(url)
     # print(response.text) # debugging - print response text
     jsonResponse = response.json()
+    # TODO: Account for invalid IP addresses, they currently crash the code due to 
+    # line 130 not finding a "country" parameter
     country_code = str(jsonResponse["country"])
     # print(country_code) # debugging - print country code
     return country_code
+
+"""
+# Name: randResponse
+# Purpose: call a random response (either geo or ip)
+# Input: A string IP address
+# Returns: none
+# Effects: calls create function to execute response
+"""
+def randResponse(ip):
+    print("Executing random response: ", end = "")
+    responseToCall = randint(1, 2)
+    if (responseToCall == 1):
+        print("ip blacklist")
+        create('ip', ip)
+    else:
+        print("geolocation block")
+        to_blacklist = get_geo(ip)
+        create('geo', to_blacklist)
+
 
 """
 # Name: main
@@ -160,10 +182,14 @@ def main():
             ip = str(args[2])
             to_blacklist = get_geo(ip)
             create('geo', to_blacklist)
+        elif (flag == "--random"):
+            ip = str(args[2])
+            randResponse(ip);
         else:
             print("Usage: --help for help")
             print("       --ip [IP Address]")
             print("       --geo [IP Address of location to block]")
+            print("       --random [IP Address] for random response")
 
 # call main
 main()
