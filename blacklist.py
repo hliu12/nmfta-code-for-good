@@ -1,7 +1,8 @@
-# Andrew Crofts, Ann Marie Burke and Henry Liu
+# Andrew Crofts, Ann Marie Burke, and Henry Liu
 # Code for Good - NMFTA
-# June 2020
-# creates new entry for blacklist with random time duration
+# June - July 2020
+# randomly creates new entry for blacklist with randomized time
+#     and randomized response (either blocks IP or blocks all IPs from location)
 
 
 import requests
@@ -13,6 +14,18 @@ from random import randint
 # define constants as min and max time in hours
 MIN = 8
 MAX = 24 
+
+"""
+# Name: print_usage
+# Purpose: print usage for script
+# Input: none
+# Returns: none
+"""
+def print_usage():
+    print("Usage: --help for help")
+    print("       --ip [IP Address]")
+    print("       --geo [IP Address of location to block]")
+    print("       --random [IP Address] for random response")
 
 """
 # Name: current_time
@@ -128,7 +141,10 @@ def get_geo(ip):
     jsonResponse = response.json()
     # TODO: Account for invalid IP addresses, they currently crash the code due to 
     # line 130 not finding a "country" parameter
-    country_code = str(jsonResponse["country"])
+    if "country" in jsonResponse.keys():
+        country_code = str(jsonResponse["country"])
+    else:
+        sys. exit("Invalid IP.\n")
     # print(country_code) # debugging - print country code
     return country_code
 
@@ -150,6 +166,64 @@ def randResponse(ip):
         to_blacklist = get_geo(ip)
         create('geo', to_blacklist)
 
+"""
+# Name: validIP
+# Purpose: check if an IP Address is valid IPv4
+# Input: IP to check
+# Returns: True if valid, False if not
+"""
+# TODO: fix some edge cases --> special IPs that can't be used
+def validIP(ip):
+    if ip.count('.') == 3:
+        if (ip == '0.0.0.0' or ip == '255.255.255.255'):
+            return False
+        else:
+            ipSplit = ip.split('.')
+            return (len(ipSplit) == 4 and all(0 <= int(i) <= 255 for i in ipSplit))
+    # elif ip.count(':') == 7:
+    #     ipSplit = ip.split(':')
+    #     for i in ipSplit:
+    #         if len(i) > 4:
+    #             return False
+    #         return int(i, 16) >= 0 and i[0] != '-'
+    else:
+        return False
+
+"""
+# Name: process_args
+# Purpose: process command line arguments
+# Input: none
+# Returns: none
+"""
+def process_args():
+    args = sys.argv # get args
+    argc = len(args) # get num of args
+
+    if (argc == 2):
+        flag = args[1]
+        if (flag == "--help"):
+            print_usage()
+        else:
+            print("Use --help to get started.")
+    elif (argc != 3):
+        print("Use --help to get started.")
+    else:
+        flag = args[1]
+        
+        ip = str(args[2])
+
+        # if (validIP(ip)):
+        if (flag == "--ip"):
+            create('ip', ip)
+        elif (flag == "--geo"):
+            to_blacklist = get_geo(ip)
+            create('geo', to_blacklist)
+        elif (flag == "--random"):
+            randResponse(ip)
+        else:
+            print_usage()
+        # else:
+        #     print("Not a valid IP address.")
 
 """
 # Name: main
@@ -159,44 +233,17 @@ def randResponse(ip):
 # Effects: calls create function on ip and geo location
 """
 def main():
-    args = sys.argv # get args
-    argc = len(args) # get num of args
-
-    if (argc == 2):
-        flag = args[1]
-        if (flag == "--help"):
-            print("Usage: --help for help")
-            print("       --ip [IP Address]")
-            print("       --geo [IP Address of location to block]")
-        else:
-            print("Use --help to get started.")
-    elif (argc != 3):
-        print("Use --help to get started.")
-    else:
-        flag = args[1]
-        
-        if (flag == "--ip"):
-            to_blacklist = str(args[2])
-            create('ip', to_blacklist)
-        elif (flag == "--geo"):
-            ip = str(args[2])
-            to_blacklist = get_geo(ip)
-            create('geo', to_blacklist)
-        elif (flag == "--random"):
-            ip = str(args[2])
-            randResponse(ip);
-        else:
-            print("Usage: --help for help")
-            print("       --ip [IP Address]")
-            print("       --geo [IP Address of location to block]")
-            print("       --random [IP Address] for random response")
+    process_args()
 
 # call main
 main()
 
+"""
 # Resources:
 #   https://docs.python.org/3/library/random.html
 #   https://docs.python.org/3/library/datetime.html
 #   https://stackoverflow.com/questions/2150739/iso-time-iso-8601-in-python
 #   https://www.geeksforgeeks.org/get-current-date-and-time-using-python/#:~:text=To%20get%20both%20current%20date,current%20local%20date%20and%20time.
+#   https://www.tutorialspoint.com/validate-ip-address-in-python
+"""
 
