@@ -1,9 +1,10 @@
+"""
 # Andrew Crofts, Ann Marie Burke, and Henry Liu
 # Code for Good - NMFTA
 # June - July 2020
 # randomly creates new entry for blacklist with randomized time
 #     and randomized response (either blocks IP or blocks all IPs from location)
-
+"""
 
 import requests
 import datetime
@@ -14,6 +15,8 @@ from random import randint
 # define constants as min and max time in hours
 MIN = 8
 MAX = 24 
+BLACKLIST_URL = "https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/"
+IP_INFO = "https://ipinfo.io/"
 
 """
 # Name: print_usage
@@ -113,19 +116,23 @@ def create(type, to_blacklist):
         'Authorization': 'Bearer {access token from /login}',
     }
 
-    if (type == 'ip'):
-        params = ip_params(to_blacklist, start_time, end_time)
-    elif (type == 'geo'):
-        params = geo_params(to_blacklist, start_time, end_time)
+    if (type == 'ip' or type == 'geo'):
+        create_url = ""
+        if (type == 'ip'):
+            params = ip_params(to_blacklist, start_time, end_time)
+            create_url = BLACKLIST_URL + "ipaddresses/create"
+        elif (type == 'geo'):
+            params = geo_params(to_blacklist, start_time, end_time)
+            create_url = BLACKLIST_URL + "geolocations/create"
+        request = requests.post(create_url, headers=headers, params=params)
+        print('Status code: ' + str(request.status_code))
+        print('Text: ' + str(request.text))
+        print('\n')
+        # TODO: Search list to ensure IP is added
     else:
         print("Error: Invalid entry")
         pass
-    
-    request = requests.post('https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/create', headers=headers, params=params)
-    print('Status code: ' + str(request.status_code))
-    print('Text: ' + str(request.text))
-    print('\n')
-    # TODO: Search list to ensure IP is added
+
 
 """
 # Name: get_geo
@@ -134,7 +141,7 @@ def create(type, to_blacklist):
 # Returns: geo location country code of IP address
 """
 def get_geo(ip):
-    url = 'https://ipinfo.io/' + str(ip) + '/json'
+    url = IP_INFO + str(ip) + '/json'
     # print(url) # debugging
     response = requests.get(url)
     # print(response.text) # debugging - print response text
@@ -144,7 +151,7 @@ def get_geo(ip):
     if "country" in jsonResponse.keys():
         country_code = str(jsonResponse["country"])
     else:
-        sys. exit("Invalid IP.\n")
+        sys.exit("Invalid IP.\n")
     # print(country_code) # debugging - print country code
     return country_code
 
@@ -163,8 +170,8 @@ def randResponse(ip):
         create('ip', ip)
     else:
         print("geolocation block")
-        to_blacklist = get_geo(ip)
-        create('geo', to_blacklist)
+        geo = get_geo(ip)
+        create('geo', geo)
 
 """
 # Name: validIP
@@ -230,7 +237,7 @@ def process_args():
 # Purpose: main function
 # Input: none
 # Returns: none
-# Effects: calls create function on ip and geo location
+# Effects: calls process_args function to process command line arguments
 """
 def main():
     process_args()
