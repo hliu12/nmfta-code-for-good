@@ -8,8 +8,8 @@ This wrapper was created to diversify the bouncer’s response to threats by inc
 ## Usage
 
 ### Blacklist.py
-This script implements a dynamic response by randomly either blocking the geolocation or the IP address of an identified threat for a random time period between 8-24 hours.
-Currently, there are 3 unique flags to choose from: -ip, -geo, and -random. The script will activate the response indicated by the flag, or for the random flag, choose a response randomly.
+This script implements a dynamic response by randomly either blocking the geolocation or the IP address of an identified threat for a random time period between 8-24 hours.  
+Currently, there are 3 unique flags to choose from: -ip, -geo, and -random. The script will activate the response indicated by the flag, or for the random flag, choose a response randomly.  
 The functionality of the script may be tested by running:
 ```bash
 python blacklist.py [IP Address] [flag]
