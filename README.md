@@ -1,5 +1,5 @@
 # Tufts Code for Good NMFTA Bouncer Wrapper
-This repository contains a python wrapper for the NMFTA Bouncer API, interacting with the API to incite dynamic responses to threats. The Python file blacklist.py contains all of the 
+This repository contains a python wrapper for the NMFTA Bouncer API, interacting with the API to incite dynamic responses to threats. 
 
  ## Wrapper Description
 This wrapper was created to diversify the bouncer’s response to threats by inciting dynamic responses. The wrapper contains a variety of responses including ip and geolocation blocking with aspects of randomness and time checking implemented. See Usage for more detail about each response.
