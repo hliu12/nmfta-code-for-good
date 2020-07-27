@@ -26,25 +26,32 @@ python blacklist.py [IP Address] --random
 ```
 
 
+## **Installing**
+
 ### **Prerequisites**
-May require installation of python libraries such as:
-Requests
-Datetime
-Sys
-Random
-Shodan
+May require installation of python libraries such as:  
+* Requests
+* Datetime
+* Sys
+* Random
+* Shodan  
 
-	Additionally, requires installation of Debian OS and Apache in order to test Bouncer actions on a server.
+Additionally, requires installation of Debian OS and Apache in order to test Bouncer actions on a server.
 
-### **Installing**
+### **API Setup/Reference**
+This wrapper was made for the NMFTA's open source bouncer API, which contains details on how to set up a
+local instance of the bouncer API. Installation instructions and documentation can be found at the open 
+source repo [here](https://github.com/nmfta-repo/nmfta-bouncer)
 
+## **Testing**
 
-
+Due to the issues we experienced with setting up a local environment of the bouncer API, test calls were 
+done on a mock server of the API. The documentation for this mock server can be found [here](https://nmftabouncer.docs.apiary.io/#)
 
 
 # **Contributors**
-**Ann Marie Burke** - *Developer* - annmarieb1
-**Henry Liu** - *Developer* - hliu12
-**Andrew Crofts** - *Developer* - acrofts040
-**Bobby Wells** - *Dev Lead* 
-**Winnona DeSombre** - *Tech Lead*
+**Ann Marie Burke** (annmarieb1) - *Developer*   
+**Henry Liu** (hliu12) - *Developer*  
+**Andrew Crofts** (acrofts040) - *Developer*  
+**Bobby Wells** - *Dev Lead*  
+**Winnona DeSombre** - *Tech Lead*  
