@@ -1,5 +1,5 @@
 # Tufts Code for Good - NMFTA Bouncer Wrapper
-This repository contains a python wrapper for the NMFTA Bouncer API, interacting with the API to incite dynamic responses to threats. 
+This repository contains a python wrapper for the [NMFTA Bouncer API][NMFTA Bouncer], interacting with the API to incite dynamic responses to threats. 
 
 
 ## Wrapper Description
@@ -43,17 +43,17 @@ python3 whitelist.py [filename]
 
 ### **Prerequisites**
 May require installation of python libraries such as:  
-* Requests
-* Datetime
-* Sys
-* Random
-* Shodan  
+* Requests - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* Datetime - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* Sys - required for `blacklist.py`, `Shodan.py`, `timezone_geoblock.py`, `whitelist.py`
+* Random - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* Shodan  - required for `Shodan.py`
 
 Additionally, requires installation of Debian OS and Apache in order to test Bouncer actions on a server. [see Bouncer instructions for installation under [API Setup/Reference](#api-setupreference).
 
 ### **API Setup/Reference**
 This wrapper was made for the NMFTA's open source bouncer API, which contains details on how to set up a local instance of the bouncer API. Installation instructions and documentation can be found at the open 
-source repo [here](https://github.com/nmfta-repo/nmfta-bouncer).
+source repo [here][NMFTA Bouncer].
 
 
 # **Contributors**
@@ -62,3 +62,6 @@ source repo [here](https://github.com/nmfta-repo/nmfta-bouncer).
 **Andrew Crofts** (acrofts040) - *Developer*  
 **Bobby Wells** - *Dev Lead*  
 **Winnona DeSombre** - *Tech Lead*
+
+<!-- Links -->
+[NMFTA Bouncer]: https://github.com/nmfta-repo/nmfta-bouncer
