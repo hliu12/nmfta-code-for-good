@@ -53,12 +53,12 @@ Additionally, requires installation of Debian OS and Apache in order to test Bou
 
 ### **API Setup/Reference**
 This wrapper was made for the NMFTA's open source bouncer API, which contains details on how to set up a local instance of the bouncer API. Installation instructions and documentation can be found at the open 
-source repo [here](https://github.com/nmfta-repo/nmfta-bouncer).
+source repo <a href="https://github.com/nmfta-repo/nmfta-bouncer" target="_blank">here</a>.
 
 ## **Testing**
 
 Due to the issues we experienced with setting up a local environment of the bouncer API, test calls were 
-done on a mock server of the API. The documentation for this mock server can be found [here](https://nmftabouncer.docs.apiary.io/#).
+done on a mock server of the API. The documentation for this mock server can be found <a href="https://nmftabouncer.docs.apiary.io/#" target="_blank">here</a>.
 
 
 # **Contributors**
