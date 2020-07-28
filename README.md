@@ -44,14 +44,6 @@ python3 Shodan.py
 ### **Prerequisites**
 Requires installation of python libraries such as:  
 * [requests](https://pypi.org/project/requests/2.7.0/) (documentation [here](https://requests.readthedocs.io/en/master/)) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
-    * Install by running
-```
-pip install requests
-```
-or
-```
-pipenv install requests
-```
 
 * [datetime](https://docs.python.org/3/library/datetime.html) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
 
