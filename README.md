@@ -1,4 +1,4 @@
-# Tufts Code for Good NMFTA Bouncer Wrapper
+# Tufts Code for Good - NMFTA Bouncer Wrapper
 This repository contains a python wrapper for the NMFTA Bouncer API, interacting with the API to incite dynamic responses to threats. 
 
  ## Wrapper Description
