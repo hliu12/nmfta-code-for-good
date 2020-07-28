@@ -43,19 +43,21 @@ python3 Shodan.py
 
 ### **Prerequisites**
 May require installation of python libraries such as:  
-* [Requests](https://pypi.org/project/requests/2.7.0/) (documentation [here](https://requests.readthedocs.io/en/master/)) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* [requests](https://pypi.org/project/requests/2.7.0/) (documentation [here](https://requests.readthedocs.io/en/master/)) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
     * Install by running
 ```
 pip install requests
-``` or ```
+```
+or
+```
 pipenv install requests
 ```
 
-* Datetime - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* [datetime](https://docs.python.org/3/library/datetime.html) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
 
-* Sys - required for `blacklist.py`, `Shodan.py`, `timezone_geoblock.py`, `whitelist.py`
-* Random - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
-* Shodan  - required for `Shodan.py`
+* [sys](https://docs.python.org/3/library/sys.html) - required for `blacklist.py`, `Shodan.py`, `timezone_geoblock.py`, `whitelist.py`
+* [random](https://docs.python.org/3/library/random.html) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* [shodan](https://shodan.readthedocs.io/en/latest/)  - required for `Shodan.py`
 
 Additionally, requires installation of Debian OS and Apache in order to test Bouncer actions on a server. [see Bouncer instructions for installation under [API Setup/Reference](#api-setupreference).
 
