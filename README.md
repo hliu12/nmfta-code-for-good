@@ -48,13 +48,13 @@ May require installation of python libraries such as:
 `pip install requests` or `pipenv install requests`
 
 * [Requests](https://pypi.org/project/requests/2.7.0/) ([documentation](https://requests.readthedocs.io/en/master/)) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
-```
+``
 pip install requests
-```
+``
 or
-```
+``
 pipenv install requests
-```
+``
 
 * Datetime - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
 
