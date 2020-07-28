@@ -32,7 +32,8 @@ python3 whitelist.py [filename]
 
 ### Shodan.py
 [TODO]
-[Insert short description]
+This script searches a given IP on the Shodan search engine through the Shodan API. Through this it analyzes which ports are open and determines whether the given IP is a VPN. If it is, it returns a boolean of true, and will be blacklisted through Bouncer. 
+
 [Detail how to test it]
 
 
