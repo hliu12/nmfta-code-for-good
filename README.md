@@ -1,52 +1,61 @@
-# Tufts Code for Good NMFTA Bouncer Wrapper
-This repository contains a python wrapper for the NMFTA Bouncer API, interacting with the API to incite dynamic responses to threats. The Python file blacklist.py contains all of the 
+# Tufts Code for Good - NMFTA Bouncer Wrapper
+This repository contains a python wrapper for the [NMFTA Bouncer API][NMFTA Bouncer], interacting with the API to incite dynamic responses to threats. 
 
- ## Wrapper Description
-This wrapper was created to diversify the bouncer’s response to threats by inciting dynamic responses. The wrapper does this by randomly either blocking the geolocation or the IP address of an identified threat for a random time period between 8-24 hours.
+
+## Wrapper Description
+This wrapper was created to showcase what a dynamic security environment can look like. Our scripts diversify the bouncer’s response to threats by inciting dynamic responses. The wrapper contains a variety of responses including ip and geolocation blocking with aspects of randomness and time checking implemented. See [Usage](#Usage) for more detail about each response. All calls are made to the API’s [mock server](https://nmftabouncer.docs.apiary.io/#), so it has not been thoroughly tested. If you would like to use this as a starting point, we recommend you create a local instance of the server and replace calls to the mock server with calls to the local server.
+
 
 ## Usage
-The functionality of the bouncer may be tested by running blacklist.py in the following manner:
 
+### Blacklist.py
+This script implements a dynamic response by randomly either blocking the geolocation or the IP address of an identified threat for a random time period between 8-24 hours.  
+Currently, there are 3 unique flags to choose from: --ip, --geo, and --random. The script will activate the response indicated by the flag, or for the random flag, choose a response randomly.
+The functionality of the script may be tested by running:
 ```bash
-python blacklist.py [IP Address] [flag]
+python3 blacklist.py [flag] [IP Address]
 ```
 
-Currently, there are 3 unique flags to choose from:
-To run the IP address blocking feature, do:
+### Timezone_geoblock.py
+This script checks that a user at a given IP address is attempting to connect at a reasonable time of day (7AM - 10PM). If the user's geolocation is not within this time frame, this script blocks the geolocation of the given IP address until the reasonable time window.
+
+The functionality of the script may be tested by running:
 ```bash
-python blacklist.py [IP Address] --ip
+python3 timezone_geoblock.py [IP Address]
 ```
-To run the geolocation blocking feature, do:
+
+### Whitelist.py
+This script whitelists known good IP addresses for a day. It takes in a text file of IP addresses on the command line (each IP must be on a new line), reads in the IP addresses, clears the current whitelist, and whitelists all IP addresses from the given file.
+The functionality of the script may be tested by running:
 ```bash
-python blacklist.py [IP Address] --geo
+python3 whitelist.py [filename]
 ```
-To randomize the response chosen, do: 
+
+### Shodan.py
+This script searches a given IP on the Shodan search engine through the Shodan API. Through this it analyzes which ports are open and determines whether the given IP is a VPN. If it is, it returns a boolean of true, and will be blacklisted through Bouncer. 
+The functionality of the script may be tested by running:
 ```bash
-python blacklist.py [IP Address] --random
+python3 Shodan.py
 ```
 
 
 ## **Installing**
 
 ### **Prerequisites**
-May require installation of python libraries such as:  
-* Requests
-* Datetime
-* Sys
-* Random
-* Shodan  
+Requires installation of python libraries such as:  
+* [requests](https://pypi.org/project/requests/2.7.0/) (documentation [here](https://requests.readthedocs.io/en/master/)) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
 
-Additionally, requires installation of Debian OS and Apache in order to test Bouncer actions on a server.
+* [datetime](https://docs.python.org/3/library/datetime.html) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+
+* [sys](https://docs.python.org/3/library/sys.html) - required for `blacklist.py`, `Shodan.py`, `timezone_geoblock.py`, `whitelist.py`
+* [random](https://docs.python.org/3/library/random.html) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* [shodan](https://shodan.readthedocs.io/en/latest/)  - required for `Shodan.py`
+
+Additionally, requires installation of Debian OS and Apache in order to test Bouncer actions on a server. [see Bouncer instructions for installation under [API Setup/Reference](#api-setupreference).
 
 ### **API Setup/Reference**
-This wrapper was made for the NMFTA's open source bouncer API, which contains details on how to set up a
-local instance of the bouncer API. Installation instructions and documentation can be found at the open 
-source repo [here](https://github.com/nmfta-repo/nmfta-bouncer)
-
-## **Testing**
-
-Due to the issues we experienced with setting up a local environment of the bouncer API, test calls were 
-done on a mock server of the API. The documentation for this mock server can be found [here](https://nmftabouncer.docs.apiary.io/#)
+This wrapper was made for the NMFTA's open source bouncer API, which contains details on how to set up a local instance of the bouncer API. Installation instructions and documentation can be found at the open 
+source repo [here][NMFTA Bouncer].
 
 
 # **Contributors**
@@ -54,4 +63,7 @@ done on a mock server of the API. The documentation for this mock server can be 
 **Henry Liu** (hliu12) - *Developer*  
 **Andrew Crofts** (acrofts040) - *Developer*  
 **Bobby Wells** - *Dev Lead*  
-**Winnona DeSombre** - *Tech Lead*  
+**Winnona DeSombre** - *Tech Lead*
+
+<!-- Links -->
+[NMFTA Bouncer]: https://github.com/nmfta-repo/nmfta-bouncer
