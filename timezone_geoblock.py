@@ -27,10 +27,10 @@ def process_args():
 
     if (argc == 2):
         ip = args[1]
-        time = get_time(ip)
-        if (not validate_time(time)) :
+        time_at_loc = get_time(ip)
+        if (not validate_time(time_at_loc)) :
             to_blacklist = get_geo(ip)
-            create('geo', to_blacklist, time)
+            create('geo', to_blacklist, time_at_loc)
         else:
             print("Time at timezone is valid")
     else:
