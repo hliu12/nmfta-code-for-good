@@ -27,9 +27,10 @@ def process_args():
 
     if (argc == 2):
         ip = args[1]
-        if (not validate_time(get_time(ip))) :
+        time = get_time(ip)
+        if (not validate_time(time)) :
             to_blacklist = get_geo(ip)
-            create('geo', to_blacklist, get_time(ip))
+            create('geo', to_blacklist, time)
         else:
             print("Time at timezone is valid")
     else:
@@ -60,8 +61,9 @@ def get_time(ip):
     # print(response.text) # debugging - print response text
     jsonResponse = response.json()
     time = str(jsonResponse["time_zone"]["current_time"])
+    country = str(jsonResponse["country_name"])
     # Converts the json response time into a dateTime object
-    # print(time) #prints time for debugging
+    print("Time at " + country + ": " + time) #prints time and country for debugging
     dateTime = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f%z')
     #print(dateTime) #ensures string converesion success for debugging
     return dateTime
