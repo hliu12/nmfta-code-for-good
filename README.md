@@ -8,12 +8,12 @@ This wrapper was created to showcase what a dynamic security environment can loo
 
 ## Usage
 
-### Blacklist.py
+### Blocklist.py
 This script implements a dynamic response by randomly either blocking the geolocation or the IP address of an identified threat for a random time period between 8-24 hours.  
 Currently, there are 3 unique flags to choose from: --ip, --geo, and --random. The script will activate the response indicated by the flag, or for the random flag, choose a response randomly.
 The functionality of the script may be tested by running:
 ```bash
-python3 blacklist.py [flag] [IP Address]
+python3 blocklist.py [flag] [IP Address]
 ```
 
 ### Timezone_geoblock.py
@@ -24,15 +24,15 @@ The functionality of the script may be tested by running:
 python3 timezone_geoblock.py [IP Address]
 ```
 
-### Whitelist.py
-This script whitelists known good IP addresses for a day. It takes in a text file of IP addresses on the command line (each IP must be on a new line), reads in the IP addresses, clears the current whitelist, and whitelists all IP addresses from the given file.
+### Passlist.py
+This script passlists known good IP addresses for a day. It takes in a text file of IP addresses on the command line (each IP must be on a new line), reads in the IP addresses, clears the current passlist, and passlists all IP addresses from the given file.
 The functionality of the script may be tested by running:
 ```bash
-python3 whitelist.py [filename]
+python3 passlist.py [filename]
 ```
 
 ### Shodan.py
-This script searches a given IP on the Shodan search engine through the Shodan API. Through this it analyzes which ports are open and determines whether the given IP is a VPN. If it is, it returns a boolean of true, and will be blacklisted through Bouncer. 
+This script searches a given IP on the Shodan search engine through the Shodan API. Through this it analyzes which ports are open and determines whether the given IP is a VPN. If it is, it returns a boolean of true, and will be blocklisted through Bouncer. 
 The functionality of the script may be tested by running:
 ```bash
 python3 Shodan.py
@@ -43,12 +43,12 @@ python3 Shodan.py
 
 ### **Prerequisites**
 Requires installation of python libraries such as:  
-* [requests](https://pypi.org/project/requests/2.7.0/) (documentation [here](https://requests.readthedocs.io/en/master/)) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* [requests](https://pypi.org/project/requests/2.7.0/) (documentation [here](https://requests.readthedocs.io/en/master/)) - required for `blocklist.py`, `timezone_geoblock.py`, `passlist.py`
 
-* [datetime](https://docs.python.org/3/library/datetime.html) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* [datetime](https://docs.python.org/3/library/datetime.html) - required for `blocklist.py`, `timezone_geoblock.py`, `passlist.py`
 
-* [sys](https://docs.python.org/3/library/sys.html) - required for `blacklist.py`, `Shodan.py`, `timezone_geoblock.py`, `whitelist.py`
-* [random](https://docs.python.org/3/library/random.html) - required for `blacklist.py`, `timezone_geoblock.py`, `whitelist.py`
+* [sys](https://docs.python.org/3/library/sys.html) - required for `blocklist.py`, `Shodan.py`, `timezone_geoblock.py`, `passlist.py`
+* [random](https://docs.python.org/3/library/random.html) - required for `blocklist.py`, `timezone_geoblock.py`, `passlist.py`
 * [shodan](https://shodan.readthedocs.io/en/latest/)  - required for `Shodan.py`
 
 Additionally, requires installation of Debian OS and Apache in order to test Bouncer actions on a server. [see Bouncer instructions for installation under [API Setup/Reference](#api-setupreference).
