@@ -3,7 +3,7 @@
 #
 # timezone_geoblock.py
 # Validates times of various time zones and 
-# blacklists geolocations at improper times
+# blocklists geolocations at improper times
 #
 # Written by Henry Liu
 #       on July 2020
@@ -29,8 +29,8 @@ def process_args():
         ip = args[1]
         time_at_loc = get_time(ip)
         if (not validate_time(time_at_loc)) :
-            to_blacklist = get_geo(ip)
-            create('geo', to_blacklist, time_at_loc)
+            to_blocklist = get_geo(ip)
+            create('geo', to_blocklist, time_at_loc)
         else:
             print("Time at timezone is valid")
     else:
@@ -70,13 +70,13 @@ def get_time(ip):
 
 """
 # Name: create
-# Purpose: create an entry in API blacklist
+# Purpose: create an entry in API blocklist
 # Input: none
 # Returns: none
 # Effects: calls current_time and random_time to get start and end times for entry
 """
-def create(type, to_blacklist, start_time):
-    print("Adding " + str(to_blacklist) + " to blacklist...\n")
+def create(type, to_blocklist, start_time):
+    print("Adding " + str(to_blocklist) + " to blocklist...\n")
     # Calculates the next 7am to be the end time
     relative_days = (start_time.hour >= 7)
     absolute_kwargs = dict(hour=7, minute=0, second=0, microsecond=0)
@@ -86,7 +86,7 @@ def create(type, to_blacklist, start_time):
         'Authorization': 'Bearer {access token from /login}',
     }
 
-    params = geo_params(to_blacklist, start_time, end_time)
+    params = geo_params(to_blocklist, start_time, end_time)
     request = requests.post('https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/create', headers=headers, params=params)
     print('Status code: ' + str(request.status_code))
     print('Text: ' + str(request.text))
