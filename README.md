@@ -6,7 +6,7 @@ This repository contains a python wrapper for the [NMFTA Bouncer API][NMFTA Boun
 This wrapper was created to showcase what a dynamic security environment can look like. Our scripts diversify the bouncer’s response to threats by inciting dynamic responses. The wrapper contains a variety of responses including ip and geolocation blocking with aspects of randomness and time checking implemented. See [Usage](#Usage) for more detail about each response. All calls are made to the API’s [mock server](https://nmftabouncer.docs.apiary.io/#), so it has not been thoroughly tested. If you would like to use this as a starting point, we recommend you create a local instance of the server and replace calls to the mock server with calls to the local server.
 
 ## A Note on Terminology
-We are aware of the implications the terms "blacklist" and "whitelist" have. Therefore, we will be using the terms "passlist" and "blocklist," joining Linux kernel and GitHub [article linked](https://thenextweb.com/dd/2020/07/13/linux-kernel-will-no-longer-use-terms-blacklist-and-slave/#:~:text=Alternatives%20for%20blacklist%2Fwhitelist%20are,the%20right%20way%20to%20go), among others, in their efforts to transition away from these terms towards inclusive terms.
+We are aware of the implications the terms "blacklist" and "whitelist" have. Therefore, we will be using the terms "blocklist" and "passlist," joining Linux kernel and GitHub [article linked](https://thenextweb.com/dd/2020/07/13/linux-kernel-will-no-longer-use-terms-blacklist-and-slave/#:~:text=Alternatives%20for%20blacklist%2Fwhitelist%20are,the%20right%20way%20to%20go), among others, in their efforts to transition away from these terms towards inclusive terms.
 
 
 ## Usage
