@@ -13,14 +13,14 @@ We are aware of the implications the terms "blacklist" and "whitelist" have. The
 
 ### Blocklist.py
 This script implements a dynamic response by randomly either blocking the geolocation or the IP address of an identified threat for a random time period between 8-24 hours.  
-Currently, there are 3 unique flags to choose from: --ip, --geo, and --random. The script will activate the response indicated by the flag, or for the random flag, choose a response randomly.
+Currently, there are 3 unique flags to choose from: --ip, --geo, and --random. The script will activate the response indicated by the flag, or for the random flag, choose a response randomly.  
 The functionality of the script may be tested by running:
 ```bash
 python3 blocklist.py [flag] [IP Address]
 ```
 
 ### Timezone_geoblock.py
-This script checks that a user at a given IP address is attempting to connect at a reasonable time of day (7AM - 10PM). If the user's geolocation is not within this time frame, this script blocks the geolocation of the given IP address until the reasonable time window.
+script checks if a user at a given IP address is attempting to connect at a reasonable time of day for the geolocation of the IP address, namely between 7 a.m. and 10 p.m. If the user is not attempting to gain access within reasonable working hours for their geolocation, this script blocks the geolocation of the given IP address until the next reasonable time window (7 a.m. the next day).  
 
 The functionality of the script may be tested by running:
 ```bash
@@ -28,14 +28,14 @@ python3 timezone_geoblock.py [IP Address]
 ```
 
 ### Passlist.py
-This script passlists known good IP addresses for a day. It takes in a text file of IP addresses on the command line (each IP must be on a new line), reads in the IP addresses, clears the current passlist, and passlists all IP addresses from the given file.
+This script passlists known good IP addresses for a day. It takes in a text file of IP addresses on the command line (each IP must be on a new line), reads in the IP addresses, clears the current passlist, and passlists all IP addresses from the given file. It is attended to run once every day so that the passlist is updated, ensuring that only trusted users have guaranteed access.  
 The functionality of the script may be tested by running:
 ```bash
 python3 passlist.py [filename]
 ```
 
 ### Shodan.py
-This script searches a given IP on the Shodan search engine through the Shodan API. Through this it analyzes which ports are open and determines whether the given IP is a VPN. If it is, it returns a boolean of true, and will be blocklisted through Bouncer. 
+This script searches a given IP on the Shodan search engine through the Shodan API. Through this it analyzes which ports are open and determines whether the given IP is a VPN. If it is, it returns a boolean of true, and will be blocklisted through Bouncer.  
 The functionality of the script may be tested by running:
 ```bash
 python3 Shodan.py
