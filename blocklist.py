@@ -143,9 +143,7 @@ def create(type, to_blocklist):
 """
 def get_geo(ip):
     url = IP_INFO + str(ip) + '/json'
-    # print(url) # debugging
     response = requests.get(url)
-    # print(response.text) # debugging - print response text
     jsonResponse = response.json()
     # TODO: Account for invalid IP addresses, they currently crash the code due to 
     # line 130 not finding a "country" parameter
@@ -153,7 +151,7 @@ def get_geo(ip):
         country_code = str(jsonResponse["country"])
     else:
         sys.exit("Invalid IP.\n")
-    # print(country_code) # debugging - print country code
+    
     return country_code
 
 """
@@ -173,29 +171,6 @@ def randResponse(ip):
         print("geolocation block")
         geo = get_geo(ip)
         create('geo', geo)
-
-"""
-# Name: validIP
-# Purpose: check if an IP Address is valid IPv4
-# Input: IP to check
-# Returns: True if valid, False if not
-"""
-# TODO: fix some edge cases --> special IPs that can't be used
-def validIP(ip):
-    if ip.count('.') == 3:
-        if (ip == '0.0.0.0' or ip == '255.255.255.255'):
-            return False
-        else:
-            ipSplit = ip.split('.')
-            return (len(ipSplit) == 4 and all(0 <= int(i) <= 255 for i in ipSplit))
-    # elif ip.count(':') == 7:
-    #     ipSplit = ip.split(':')
-    #     for i in ipSplit:
-    #         if len(i) > 4:
-    #             return False
-    #         return int(i, 16) >= 0 and i[0] != '-'
-    else:
-        return False
 
 """
 # Name: process_args
