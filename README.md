@@ -20,7 +20,7 @@ python3 blocklist.py [flag] [IP Address]
 ```
 
 ### Timezone_geoblock.py
-script checks if a user at a given IP address is attempting to connect at a reasonable time of day for the geolocation of the IP address, namely between 7 a.m. and 10 p.m. If the user is not attempting to gain access within reasonable working hours for their geolocation, this script blocks the geolocation of the given IP address until the next reasonable time window (7 a.m. the next day).  
+This script checks if a user at a given IP address is attempting to connect at a reasonable time of day for the geolocation of the IP address, namely between 7 a.m. and 10 p.m. If the user is not attempting to gain access within reasonable working hours for their geolocation, this script blocks the geolocation of the given IP address until the next reasonable time window (7 a.m. the next day).  
 The functionality of the script may be tested by running:
 ```bash
 python3 timezone_geoblock.py [IP Address]
