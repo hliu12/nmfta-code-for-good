@@ -126,9 +126,10 @@ def create(type, to_blocklist):
             params = geo_params(to_blocklist, start_time, end_time)
             create_url = BLOCKLIST_URL + "geolocations/create"
         request = requests.post(create_url, headers=headers, params=params)
-        print('Status code: ' + str(request.status_code))
-        print('Text: ' + str(request.text))
-        print('\n')
+        if (request.status_code == 200):
+            print('Success.\n')
+        else:
+            print('Error.\n')
         # TODO: Search list to ensure IP is added
     else:
         print("Error: Invalid entry")
