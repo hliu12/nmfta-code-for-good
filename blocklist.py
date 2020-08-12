@@ -2,8 +2,9 @@
 # Andrew Crofts, Ann Marie Burke, and Henry Liu
 # Code for Good - NMFTA
 # June - July 2020
-# randomly creates new entry for blacklist with randomized time
-#     and randomized response (either blocks IP or blocks all IPs from location)
+# creates new entry for blocklist with randomized time
+#       and blocks either geolocation or IP address of threat indicated by flag
+#       or will choose response randomly
 """
 
 import requests
@@ -15,7 +16,7 @@ from random import randint
 # define constants as min and max time in hours
 MIN = 8
 MAX = 24 
-BLACKLIST_URL = "https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/"
+BLOCKLIST_URL = "https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/"
 IP_INFO = "https://ipinfo.io/"
 
 """
@@ -101,14 +102,14 @@ def geo_params(geo, start_time, end_time):
 
 """
 # Name: create
-# Purpose: create an entry in API blacklist
+# Purpose: create an entry in API blocklist
 # Input: none
 # Returns: none
 # Effects: calls current_time and random_time to get start and end times for entry
 """
-def create(type, to_blacklist):
+def create(type, to_blocklist):
     # TODO: add error handling when invalid IP or Geo Location
-    print("Adding " + str(to_blacklist) + " to blacklist...\n")
+    print("Adding " + str(to_blocklist) + " to blocklist...\n")
 
     start_time = current_time()
     end_time = random_time(start_time)
@@ -119,11 +120,11 @@ def create(type, to_blacklist):
     if (type == 'ip' or type == 'geo'):
         create_url = ""
         if (type == 'ip'):
-            params = ip_params(to_blacklist, start_time, end_time)
-            create_url = BLACKLIST_URL + "ipaddresses/create"
+            params = ip_params(to_blocklist, start_time, end_time)
+            create_url = BLOCKLIST_URL + "ipaddresses/create"
         elif (type == 'geo'):
-            params = geo_params(to_blacklist, start_time, end_time)
-            create_url = BLACKLIST_URL + "geolocations/create"
+            params = geo_params(to_blocklist, start_time, end_time)
+            create_url = BLOCKLIST_URL + "geolocations/create"
         request = requests.post(create_url, headers=headers, params=params)
         print('Status code: ' + str(request.status_code))
         print('Text: ' + str(request.text))
@@ -166,7 +167,7 @@ def randResponse(ip):
     print("Executing random response: ", end = "")
     responseToCall = randint(1, 2)
     if (responseToCall == 1):
-        print("ip blacklist")
+        print("ip blocklist")
         create('ip', ip)
     else:
         print("geolocation block")
@@ -219,18 +220,15 @@ def process_args():
         
         ip = str(args[2])
 
-        # if (validIP(ip)):
         if (flag == "--ip"):
             create('ip', ip)
         elif (flag == "--geo"):
-            to_blacklist = get_geo(ip)
-            create('geo', to_blacklist)
+            to_blocklist = get_geo(ip)
+            create('geo', to_blocklist)
         elif (flag == "--random"):
             randResponse(ip)
         else:
             print_usage()
-        # else:
-        #     print("Not a valid IP address.")
 
 """
 # Name: main
