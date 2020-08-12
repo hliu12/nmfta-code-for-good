@@ -13,11 +13,14 @@ import random
 import sys
 from random import randint
 
+import list_helpers
+
 # define constants as min and max time in hours
 MIN = 8
 MAX = 24 
 BLOCKLIST_URL = "https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/"
 IP_INFO = "https://ipinfo.io/"
+BLOCK = "blocklist"
 
 """
 # Name: print_usage
@@ -71,41 +74,12 @@ def random_time(curr):
     return end_time
 
 """
-# Name: ip_params
-# Purpose: parameters to add ip address
-# Input: ip address, start time, end time (all as string vars)
-# Returns: params for request
-"""
-def ip_params(ip, start_time, end_time):
-    params = {
-        "IP": ip,
-        "Start_Date": start_time,
-        "End_Date" : end_time,
-    }
-
-    return params
-
-"""
-# Name: geo_params
-# Purpose: parameters to add geo location
-# Input: geo location, start time, end time (all as string vars)
-# Returns: params for request
-"""
-def geo_params(geo, start_time, end_time):
-    params = {
-        "Country Code": geo,
-        "Start_Date": start_time,
-        "End_Date" : end_time,
-    }
-
-    return params
-
-"""
 # Name: create
 # Purpose: create an entry in API blocklist
 # Input: none
 # Returns: none
 # Effects: calls current_time and random_time to get start and end times for entry
+#          calls imported helper functions create_ip/geo_entry
 """
 def create(type, to_blocklist):
     # TODO: add error handling when invalid IP or Geo Location
@@ -117,20 +91,10 @@ def create(type, to_blocklist):
         'Authorization': 'Bearer {access token from /login}',
     }
 
-    if (type == 'ip' or type == 'geo'):
-        create_url = ""
-        if (type == 'ip'):
-            params = ip_params(to_blocklist, start_time, end_time)
-            create_url = BLOCKLIST_URL + "ipaddresses/create"
-        elif (type == 'geo'):
-            params = geo_params(to_blocklist, start_time, end_time)
-            create_url = BLOCKLIST_URL + "geolocations/create"
-        request = requests.post(create_url, headers=headers, params=params)
-        if (request.status_code == 200):
-            print('Success.\n')
-        else:
-            print('Error.\n')
-        # TODO: Search list to ensure IP is added
+    if (type == 'ip'):
+        list_helpers.create_ip_entry(BLOCK, 4, to_blocklist, start_time, end_time)
+    elif (type == 'geo'):
+        list_helpers.create_geo_entry(BLOCK, to_blocklist, start_time, end_time)
     else:
         print("Error: Invalid entry")
         pass
