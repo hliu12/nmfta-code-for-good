@@ -15,6 +15,8 @@ from dateutil.relativedelta import relativedelta
 import random
 import sys
 
+import list_helpers
+
 """
 # Name: process_args
 # Purpose: process command line arguments
@@ -30,7 +32,7 @@ def process_args():
         time_at_loc = get_time(ip)
         if (not validate_time(time_at_loc)) :
             to_blocklist = get_geo(ip)
-            create('geo', to_blocklist, time_at_loc)
+            create(to_blocklist, time_at_loc)
         else:
             print("Time at timezone is valid")
     else:
@@ -75,22 +77,15 @@ def get_time(ip):
 # Returns: none
 # Effects: calls current_time and random_time to get start and end times for entry
 """
-def create(type, to_blocklist, start_time):
+def create(to_blocklist, start_time):
     print("Adding " + str(to_blocklist) + " to blocklist...\n")
     # Calculates the next 7am to be the end time
     relative_days = (start_time.hour >= 7)
     absolute_kwargs = dict(hour=7, minute=0, second=0, microsecond=0)
     next7am = start_time + relativedelta(days=relative_days, **absolute_kwargs)
     end_time = next7am
-    headers = {
-        'Authorization': 'Bearer {access token from /login}',
-    }
 
-    params = geo_params(to_blocklist, start_time, end_time)
-    request = requests.post('https://private-anon-31136030c9-nmftabouncer.apiary-mock.com/v1.1/blacklists/ipaddresses/create', headers=headers, params=params)
-    print('Status code: ' + str(request.status_code))
-    print('Text: ' + str(request.text))
-    print('\n')
+    list_helpers.create_geo_entry("blocklist", to_blocklist, start_time, end_time)
 
 """
 # Name: get_geo
@@ -130,8 +125,8 @@ def geo_params(geo, start_time, end_time):
 # Purpose: main function
 # Input: none
 # Returns: none
-# Effects: calls validate_time and create accordingly to respond to login attempts at
-# unusual times
+# Effects: calls validate_time and create accordingly
+#          to respond to login attempts at unusual times
 """
 def main():
     process_args()
