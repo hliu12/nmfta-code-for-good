@@ -58,16 +58,13 @@ def validate_time(time):
 """
 def get_time(ip):
     url = 'https://api.ipgeolocation.io/ipgeo?apiKey=1ae3774e2eb14f34a869994f603dbd05&ip=' + str(ip)
-    # print(url) # debugging
     response = requests.get(url)
-    # print(response.text) # debugging - print response text
     jsonResponse = response.json()
     time = str(jsonResponse["time_zone"]["current_time"])
     country = str(jsonResponse["country_name"])
     # Converts the json response time into a dateTime object
-    print("Time at " + country + ": " + time) #prints time and country for debugging
+    print("Time at " + country + ": " + time) # prints time and country for debugging
     dateTime = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f%z')
-    #print(dateTime) #ensures string converesion success for debugging
     return dateTime
 
 """
@@ -95,15 +92,12 @@ def create(to_blocklist, start_time):
 """
 def get_geo(ip):
     url = 'https://ipinfo.io/' + str(ip) + '/json'
-    # print(url) # debugging
     response = requests.get(url)
-    # print(response.text) # debugging - print response text
     jsonResponse = response.json()
     if "country" in jsonResponse.keys():
         country_code = str(jsonResponse["country"])
     else:
         sys. exit("Invalid IP.\n")
-    # print(country_code) # debugging - print country code
     return country_code
 
 """
