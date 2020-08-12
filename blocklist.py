@@ -1,8 +1,8 @@
 """
 # Andrew Crofts, Ann Marie Burke, and Henry Liu
 # Code for Good - NMFTA
-# June - July 2020
-# creates new entry for blocklist with randomized time
+# June - August 2020
+# blocklist.py -- creates new entry for blocklist with randomized time
 #       and blocks either geolocation or IP address of threat indicated by flag
 #       or will choose response randomly
 """
